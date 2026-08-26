@@ -5,21 +5,28 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "medicos")
 public class Medico {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false, unique = true)
     private String crm;
+
     @ManyToOne
-    @JoinColumn(name = "especialidade_id")
+    @JoinColumn(name = "especialidade_id", nullable = false)
     private Especialidade especialidade;
+
+    @Column(nullable = false)
     private Boolean ativo;
 
     public Medico() {
     }
 
-    public Medico(Long id, String nome, String crm, Especialidade especialidade, Boolean ativo) {
-        this.id = id;
+    public Medico(String nome, String crm, Especialidade especialidade, Boolean ativo) {
         this.nome = nome;
         this.crm = crm;
         this.especialidade = especialidade;
@@ -44,10 +51,6 @@ public class Medico {
 
     public Boolean getAtivo() {
         return ativo;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setNome(String nome) {
